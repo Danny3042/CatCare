@@ -9,5 +9,6 @@ actual fun AppIcon(name: AppIconName, contentDescription: String?) {
         AppIconName.Home -> Text("🏠")
         AppIconName.Breed -> Text("🐾")
         AppIconName.Settings -> Text("⚙️")
+        AppIconName.Add -> Text("＋")
     }
 }

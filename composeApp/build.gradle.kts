@@ -38,6 +38,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
+            implementation(libs.kotlinx.serialization.json)
             // kept other common dependencies minimal to avoid environment resolution issues
         }
         commonTest.dependencies {

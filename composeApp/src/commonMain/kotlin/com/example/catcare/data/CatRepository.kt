@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 interface CatRepository {
@@ -52,7 +51,7 @@ class InMemoryCatRepository(private val autoSave: Boolean = true) : CatRepositor
             try {
                 val list = Json.decodeFromString<List<Cat>>(text)
                 _cats.value = list
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // ignore parse errors
             }
         }
@@ -63,7 +62,7 @@ class InMemoryCatRepository(private val autoSave: Boolean = true) : CatRepositor
             try {
                 val text = Json.encodeToString(_cats.value)
                 saveText(storageFile, text)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // ignore save errors for now
             }
         }
@@ -81,7 +80,7 @@ class InMemoryCatRepository(private val autoSave: Boolean = true) : CatRepositor
         mutex.withLock {
             val idx = _cats.value.indexOfFirst { it.id == id }
             if (idx == -1) return false
-            val now = System.currentTimeMillis()
+            val now = currentTimeMillis()
             val cat = _cats.value[idx]
             if (!cat.isHungry(now)) return false
             val updated = cat.copy(lastFedEpochMs = now)
@@ -108,7 +107,7 @@ class InMemoryCatRepository(private val autoSave: Boolean = true) : CatRepositor
     }
 
     private fun addDemoData() {
-        val now = System.currentTimeMillis()
+        val now = currentTimeMillis()
         _cats.value = listOf(
             Cat(id = randomId(), name = "Mittens", ageMonths = 24, notes = "Loves naps", lastFedEpochMs = now - 2 * 60 * 60 * 1000),
             Cat(id = randomId(), name = "Shadow", ageMonths = 12, notes = "Playful at night", lastFedEpochMs = null),
