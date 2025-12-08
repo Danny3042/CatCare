@@ -1,6 +1,7 @@
 package com.example.catcare.model
 
 import kotlinx.serialization.Serializable
+import com.example.catcare.data.currentTimeMillis
 
 @Serializable
 data class Cat(
@@ -10,10 +11,9 @@ data class Cat(
     val notes: String? = null,
     val lastFedEpochMs: Long? = null
 ) {
-    fun isHungry(currentTimeMs: Long = System.currentTimeMillis()): Boolean {
+    fun isHungry(currentTimeMs: Long = currentTimeMillis()): Boolean {
         val last = lastFedEpochMs ?: return true
         val oneHourMs = 60 * 60 * 1000
         return currentTimeMs - last >= oneHourMs
     }
 }
-

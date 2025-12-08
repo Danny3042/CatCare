@@ -5,7 +5,5 @@ import android.content.Context
 actual object AppContextHolder {
     actual var context: Any? = null
 
-    actual fun setAppContext(ctx: Any?) {
-        context = (ctx as? Context)?.applicationContext
-    }
+    // set the context via the property to avoid JVM signature clash
 }

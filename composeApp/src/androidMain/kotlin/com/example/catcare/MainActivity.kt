@@ -12,7 +12,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        AppContextHolder.setAppContext(this)
+        // set the platform context via the shared property
+        AppContextHolder.context = this.applicationContext
 
         setContent {
             App()

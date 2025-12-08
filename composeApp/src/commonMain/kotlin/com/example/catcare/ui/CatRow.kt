@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.catcare.model.Cat
+import com.example.catcare.data.currentTimeMillis
 
 @Composable
 fun CatRow(cat: Cat, onClick: () -> Unit, onFeed: () -> Unit) {
@@ -30,7 +31,7 @@ fun CatRow(cat: Cat, onClick: () -> Unit, onFeed: () -> Unit) {
             val ageText = cat.ageMonths?.let { "${it} months" } ?: "Age unknown"
             Text(text = ageText)
             val lastFedText = cat.lastFedEpochMs?.let {
-                val mins = (System.currentTimeMillis() - it) / 60000
+                val mins = (currentTimeMillis() - it) / 60000
                 if (mins <= 0) "just now" else "$mins min ago"
             } ?: "never"
             Text(text = "Last fed: $lastFedText")
